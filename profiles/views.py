@@ -48,7 +48,6 @@ class ProfileCreate(generics.ListCreateAPIView):
     ]
 
     def perform_create(self, serializer):
-        # Extract user data from the serializer
         username = self.request.data['username']
         password = self.request.data['password']
         email = self.request.data['email']
@@ -56,10 +55,9 @@ class ProfileCreate(generics.ListCreateAPIView):
 
         if User.objects.filter(username=username).exists():
             raise ValidationError("Username already exists")
-        # Create the User model
+        
         if password == confirm_password:
             user = User.objects.create(username=username, email=email, password= password)
-            #user.set_password(password)
             user.save()
             serializer.save(
                 user=user,
@@ -68,7 +66,7 @@ class ProfileCreate(generics.ListCreateAPIView):
                 )
         else:
             raise ValidationError("Passwords dont match")
-        # Create the Profile model associated with the User
+        
 
 
 
