@@ -16,12 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+
 from .settings import (
-    FUNCTION_APP_PATH
+    FUNCTION_APP_PATH,
+    DEBUG,
+    MEDIA_URL,
+    MEDIA_ROOT
 )
 
 urlpatterns = [
     path(FUNCTION_APP_PATH + '/admin/', admin.site.urls),
     path(FUNCTION_APP_PATH + '/api-auth/', include('rest_framework.urls')),
-    path(FUNCTION_APP_PATH + '/profiles/', include('profiles.urls'))
+    path(FUNCTION_APP_PATH + '/profiles/', include('profiles.urls')),
+    path(FUNCTION_APP_PATH + '/links/', include('links.urls')),
+    path(FUNCTION_APP_PATH + '/songs/', include('songs.urls')),
+    path(FUNCTION_APP_PATH + '/converted_songs/', include('converted_songs.urls'))
 ]
+if DEBUG:
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

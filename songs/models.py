@@ -25,7 +25,8 @@ class Song(models.Model):
 
     #Columns
     title = models.CharField(max_length=250)
-    duration = models.TimeField()
+    file = models.FileField(upload_to='downloads/', null=True, blank=True)
+    duration = models.CharField(max_length=255,null=True, blank=True)
     artist = models.CharField(max_length=100, null=True, blank=True)
     movie = models.CharField(max_length=100, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)

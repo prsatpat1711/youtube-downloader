@@ -87,3 +87,25 @@ class ProfileList(generics.ListAPIView):
         'role',
         'archive'
     ]
+
+
+
+
+class ProfileRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_update(self,serializer):
+        if self.request.user:
+            serializer.save(
+                updated_by = self.request.user
+            )
+        else:
+            serializer.save()
+
+    def perform_destroy(self, instance):
+        instance.archive = True
+        instance.updated_by = self.request.user
+        instance.save()
+        return instance
