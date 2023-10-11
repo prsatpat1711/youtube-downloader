@@ -24,7 +24,9 @@ SECRET_KEY = 'django-insecure-1j^e=)#4c1_vf07&o$$sd$bxg+hmec1=web0%gy!ljuocrj=2+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
 ALLOWED_HOSTS = []
 
 FUNCTION_APP_PATH = 'api/v1'
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'pytube',
+    'corsheaders',
 
     'songs',
     'profiles',
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
