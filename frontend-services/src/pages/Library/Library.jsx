@@ -33,7 +33,7 @@ export default function Library() {
           password: "Pratik12",
         },
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/text",
         },
       })
       .then((response) => setSongs(response.data))
@@ -53,7 +53,7 @@ export default function Library() {
           password: "Pratik12",
         },
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/text",
         },
       })
       .then((response) => setSongs(response.data))
