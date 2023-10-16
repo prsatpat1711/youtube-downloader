@@ -26,8 +26,10 @@ SECRET_KEY = 'django-insecure-1j^e=)#4c1_vf07&o$$sd$bxg+hmec1=web0%gy!ljuocrj=2+
 DEBUG = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://4054-2401-4900-1c44-2998-7c87-d360-df8b-9393.ngrok-free.app",
+    "https://prsatpat1711.github.io",
 ]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 FUNCTION_APP_PATH = 'api/v1'
 SHOW_ADMIN_VIEW = True
