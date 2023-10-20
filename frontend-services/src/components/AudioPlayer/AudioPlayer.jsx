@@ -81,6 +81,12 @@ const AudioPlayer = ({ audio, setSongOver }) => {
           audioRef.current.currentTime =
             (e.target.value * audioRef.current.duration) / 100;
         }}
+        onClick={(e) => {
+          const clickTime =
+            (e.nativeEvent.offsetX / e.target.clientWidth) *
+            audioRef.current.duration;
+          audioRef.current.currentTime = clickTime;
+        }}
       ></input>
 
       <div className="d-flex justify-content-center">
