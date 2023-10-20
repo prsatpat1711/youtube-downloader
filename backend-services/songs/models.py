@@ -45,4 +45,4 @@ class Song(models.Model):
             return "{}".format(self.id)
   
     class Meta:
-        ordering = ['title']
+        ordering = ['id']

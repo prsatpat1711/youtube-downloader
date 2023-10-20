@@ -31,7 +31,8 @@ urlpatterns = [
     path(FUNCTION_APP_PATH + '/profiles/', include('profiles.urls')),
     path(FUNCTION_APP_PATH + '/links/', include('links.urls')),
     path(FUNCTION_APP_PATH + '/songs/', include('songs.urls')),
-    path(FUNCTION_APP_PATH + '/converted_songs/', include('converted_songs.urls'))
+    path(FUNCTION_APP_PATH + '/converted_songs/', include('converted_songs.urls')),
+    path(FUNCTION_APP_PATH + '/playlists/', include('playlists.urls'))
 ]
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

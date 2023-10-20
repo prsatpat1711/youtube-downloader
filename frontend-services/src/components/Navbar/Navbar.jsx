@@ -15,14 +15,15 @@ export default function Navbar() {
           Music Mixer
         </a>
         <div className="d-flex text-text">
-          <a className="nav-link me-4" href="#">
+          <a className="nav-link me-4" href="/library">
             Library
           </a>
-
+          <a className="nav-link me-4" href="/playlists">
+            Playlists
+          </a>
           <a className="nav-link me-4" href="#">
             Convert
           </a>
-
           <a className="nav-link me-4" href="#">
             Profile
           </a>
