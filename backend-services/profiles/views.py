@@ -11,7 +11,7 @@ from django.forms import ValidationError
 
 
 from .models import Profile
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer,ProfileCreateSerializer
 from django.contrib.auth.models import User
 
 class ProfileFilter(FilterSet):
@@ -31,7 +31,7 @@ class ProfileFilter(FilterSet):
 
 class ProfileCreate(generics.ListCreateAPIView):
     queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileCreateSerializer
     permission_classes = [AllowAny]
     filter_backends = [
         filters.SearchFilter, 
@@ -51,14 +51,15 @@ class ProfileCreate(generics.ListCreateAPIView):
         username = self.request.data['username']
         password = self.request.data['password']
         email = self.request.data['email']
-        confirm_password = self.request.data['confirm_password']
+        confirm_password = self.request.data['confirmPassword']
 
         if User.objects.filter(username=username).exists():
             raise ValidationError("Username already exists")
         
         if password == confirm_password:
-            user = User.objects.create(username=username, email=email, password= password)
+            user = User.objects.create_user(username=username, email=email, password= password)
             user.save()
+            serializer.role = "user"
             serializer.save(
                 user=user,
                 created_by=user,

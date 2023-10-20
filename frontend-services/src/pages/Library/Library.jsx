@@ -4,6 +4,7 @@ import SongFetcher from "../../components/SongFetcher/SongFetcher";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
+import { getHeaders, refreshToken } from "../../utils/Auth";
 
 export default function Library() {
   const [songs, setSongs] = useState([]);
@@ -28,15 +29,7 @@ export default function Library() {
       }
     }
     await axios
-      .get(url, {
-        auth: {
-          username: "ShivaPS",
-          password: "Pratik12",
-        },
-        headers: {
-          "content-type": "application/text",
-        },
-      })
+      .get(url, { headers: getHeaders() })
       .then((response) => setSongs(response.data))
       .catch((err) => console.log(err));
   };
@@ -48,15 +41,7 @@ export default function Library() {
   useEffect(() => {
     let url = import.meta.env.VITE_REACT_APP_BACKEND_URI + `/songs/`;
     axios
-      .get(url, {
-        auth: {
-          username: "ShivaPS",
-          password: "Pratik12",
-        },
-        headers: {
-          "content-type": "application/text",
-        },
-      })
+      .get(url, { headers: getHeaders() })
       .then((response) => setSongs(response.data))
       .catch((err) => console.log(err));
   }, []);

@@ -7,6 +7,8 @@ django-cors-headers==4.3.0
 django-filter==23.3
 django-simple-history==3.4.0
 djangorestframework==3.14.0
+djangorestframework-jwt==1.11.0
+djangorestframework-simplejwt==5.3.0
 filelock==3.12.4
 future==0.18.3
 gevent==23.9.1
@@ -14,6 +16,7 @@ greenlet==3.0.0
 idna==3.4
 Markdown==3.5
 pydub==0.25.1
+PyJWT==1.7.1
 PySocks==1.7.1
 pytube==15.0.0
 pytz==2023.3.post1

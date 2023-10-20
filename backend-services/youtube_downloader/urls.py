@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+)
 
 from .settings import (
     FUNCTION_APP_PATH,
@@ -32,7 +36,10 @@ urlpatterns = [
     path(FUNCTION_APP_PATH + '/links/', include('links.urls')),
     path(FUNCTION_APP_PATH + '/songs/', include('songs.urls')),
     path(FUNCTION_APP_PATH + '/converted_songs/', include('converted_songs.urls')),
-    path(FUNCTION_APP_PATH + '/playlists/', include('playlists.urls'))
+    path(FUNCTION_APP_PATH + '/playlists/', include('playlists.urls')),
+    path(FUNCTION_APP_PATH + '/api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path(FUNCTION_APP_PATH + '/api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
 ]
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
