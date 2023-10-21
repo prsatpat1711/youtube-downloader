@@ -6,12 +6,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = [
-            'id',
-            'first_name',
-            'last_name',
-            'role',
-            ]
+        fields = "__all__"
         
 class ProfileCreateSerializer(serializers.ModelSerializer):
     firstName = serializers.CharField(read_only=True)

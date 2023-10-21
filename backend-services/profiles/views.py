@@ -8,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.forms import ValidationError
+from django.shortcuts import get_object_or_404
 
 
 from .models import Profile
@@ -60,6 +61,8 @@ class ProfileCreate(generics.ListCreateAPIView):
             user = User.objects.create_user(username=username, email=email, password= password)
             user.save()
             serializer.role = "user"
+            serializer.first_name = self.request.data['firstName']
+            serializer.last_name = self.request.data['lastName']
             serializer.save(
                 user=user,
                 created_by=user,
@@ -110,3 +113,15 @@ class ProfileRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         instance.updated_by = self.request.user
         instance.save()
         return instance
+
+class ProfileMeView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_object(self):
+        # Attempt to retrieve the profile for the authenticated user
+        user = self.request.user
+        print(user)
+        profile = Profile.objects.get(user=user)
+        print(profile)
+        return profile

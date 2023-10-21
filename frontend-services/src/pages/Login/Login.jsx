@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SignUp from "../../components/SignUp/SignUp";
+import { getHeaders } from "../../utils/Auth";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,6 +21,19 @@ export default function LoginPage() {
         console.log(response.data);
         localStorage.setItem("access", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
+        axios
+          .get(import.meta.env.VITE_REACT_APP_BACKEND_URI + `/profiles/me/`, {
+            headers: getHeaders(),
+          })
+          .then((response) => {
+            localStorage.setItem(
+              "name",
+              response.data.first_name + " " + response.data.last_name
+            );
+            localStorage.setItem("role", response.data.role);
+            localStorage.setItem("id", response.data.id);
+          })
+          .catch((error) => console.log(error));
         navigate("/library");
       })
       .catch((error) => console.log(error));
