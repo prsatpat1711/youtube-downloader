@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SignUp from "../../components/SignUp/SignUp";
-import { getHeaders } from "../../utils/Auth";
+import AuthService from "../../utils/Auth";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -22,9 +22,10 @@ export default function LoginPage() {
         localStorage.setItem("access", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
         axios
-          .get(import.meta.env.VITE_REACT_APP_BACKEND_URI + `/profiles/me/`, {
-            headers: getHeaders(),
-          })
+          .get(
+            import.meta.env.VITE_REACT_APP_BACKEND_URI + `/profiles/me/`,
+            AuthService.getHeaders()
+          )
           .then((response) => {
             localStorage.setItem(
               "name",

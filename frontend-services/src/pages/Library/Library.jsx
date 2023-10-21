@@ -4,7 +4,7 @@ import SongFetcher from "../../components/SongFetcher/SongFetcher";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
-import { getHeaders, refreshToken } from "../../utils/Auth";
+import AuthService from "../../utils/Auth";
 
 export default function Library() {
   const [songs, setSongs] = useState([]);
@@ -17,7 +17,7 @@ export default function Library() {
     setCurrentSong(song);
   };
 
-  const fetchData = async () => {
+  const fetchData = async (retry) => {
     let url = import.meta.env.VITE_REACT_APP_BACKEND_URI + `/songs/`;
     if (searchText) {
       if (filterValue === "Album") {
@@ -29,9 +29,13 @@ export default function Library() {
       }
     }
     await axios
-      .get(url, { headers: getHeaders() })
+      .get(url, AuthService.getHeaders())
       .then((response) => setSongs(response.data))
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        AuthService.refreshToken().then((response) => {
+          fetchData(true);
+        })
+      );
   };
 
   const handleSearch = (searchText) => {
@@ -40,10 +44,17 @@ export default function Library() {
 
   useEffect(() => {
     let url = import.meta.env.VITE_REACT_APP_BACKEND_URI + `/songs/`;
-    axios
-      .get(url, { headers: getHeaders() })
-      .then((response) => setSongs(response.data))
-      .catch((err) => console.log(err));
+    const fetchSongs = async (retry) => {
+      await axios
+        .get(url, AuthService.getHeaders())
+        .then((response) => setSongs(response.data))
+        .catch((err) =>
+          AuthService.refreshToken().then((response) => {
+            fetchSongs(true);
+          })
+        );
+    };
+    fetchSongs();
   }, []);
 
   useEffect(() => {

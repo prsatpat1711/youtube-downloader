@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Playlist({ playlist }) {
   return (
-    <div className="container-fluid m-0 p-0">
-      <h1>{playlist.title}</h1>
-      <h4>{playlist.description}</h4>
+    <div className="container-fluid m-0 p-0 bg-dark text-text">
+      <div className="text-center text-primary">
+        <h1>{playlist.title}</h1>
+        <h4>{playlist.description}</h4>
+      </div>
       <div class="table-responsive m-0 p-0 w-100 d-flex">
         <table class="table table-dark">
           <thead>

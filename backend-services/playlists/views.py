@@ -10,7 +10,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.forms import ValidationError
 
 from .models import Playlist
-from .serializers import PlaylistSerializer
+from profiles.models import Profile
+from .serializers import PlaylistSerializer, PlaylistViewSerializer
 
 
 class PlaylistFilter(FilterSet):
@@ -54,7 +55,7 @@ class PlaylistCreate(generics.ListCreateAPIView):
 
 class PlaylistList(generics.ListAPIView):
     queryset = Playlist.objects.all()
-    serializer_class = PlaylistSerializer
+    serializer_class = PlaylistViewSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [
         filters.SearchFilter, 
@@ -72,7 +73,7 @@ class PlaylistList(generics.ListAPIView):
 
 class PlaylistRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Playlist.objects.all()
-    serializer_class = PlaylistSerializer
+    serializer_class = PlaylistViewSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_update(self,serializer):

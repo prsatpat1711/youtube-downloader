@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AuthService from "../../utils/Auth";
 
 export default function SongFetcher() {
   const [addSong, setAddSong] = useState({
@@ -10,21 +11,16 @@ export default function SongFetcher() {
     site_name: "",
   });
 
-  const handleAddSong = async () => {
+  const handleAddSong = async (retry) => {
     const url = import.meta.env.VITE_REACT_APP_BACKEND_URI + `/songs/create/`;
     await axios
-      .post(url, addSong, {
-        auth: {
-          username: "ShivaPS",
-          password: "Pratik12",
-        },
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(url, addSong, AuthService.getHeaders())
       .then((response) => alert(response.data))
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        AuthService.refreshToken().then((response) => {
+          handleAddSong(true);
+        })
+      );
   };
 
   return (

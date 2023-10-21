@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const name = localStorage.getItem("name") || "";
+  const id = localStorage.getItem("id") || "";
+  const role =
+    localStorage.getItem("role").charAt(0).toUpperCase() +
+      localStorage.getItem("role").slice(1) || "";
 
   const handleLogout = () => {
     localStorage.removeItem("name");
@@ -52,7 +57,7 @@ export default function Navbar() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog bg-dark">
+          <div class="modal-dialog text-primary">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
@@ -67,22 +72,22 @@ export default function Navbar() {
               </div>
               <div class="modal-body">
                 <div className="d-flex flex-column">
-                  <label>Name: {localStorage.getItem("name") || ""}</label>
-                  <label>ID: {localStorage.getItem("id") || ""}</label>
-                  <label>Role: {localStorage.getItem("role") || ""}</label>
+                  <label>Name: {name}</label>
+                  <label>ID: {id}</label>
+                  <label>Role: {role}</label>
                 </div>
               </div>
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-button"
                   data-bs-dismiss="modal"
                 >
                   Close
                 </button>
                 <button
                   type="button"
-                  class="btn btn-dark"
+                  class="btn btn-secondary"
                   onClick={handleLogout}
                   data-bs-dismiss="modal"
                 >

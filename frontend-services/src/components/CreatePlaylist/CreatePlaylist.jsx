@@ -1,41 +1,13 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 
-export default function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleSubmit = async () => {
-    const url =
-      import.meta.env.VITE_REACT_APP_BACKEND_URI + "/profiles/create/";
-    await axios
-      .post(url, {
-        firstName,
-        lastName,
-        username,
-        email,
-        password,
-        confirmPassword,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+export default function CreatePlaylist() {
   return (
     <div className="modal-dialog modal-dialog-centered d-flex">
       <div className="modal-content p-5">
         <form className="row g-3 needs-validation" noValidate>
           <div className="col-12">
             <label for="validationCustom01" className="form-label">
-              First name
+              Name of the playlist
             </label>
             <input
               type="text"
@@ -48,7 +20,7 @@ export default function SignUp() {
           </div>
           <div className="col-12">
             <label for="validationCustom02" className="form-label">
-              Last name
+              Description for the playlist
             </label>
             <input
               type="text"

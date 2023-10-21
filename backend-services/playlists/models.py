@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from songs.models import Song
+from profiles.models import Profile
 
 # Create your models here.
 class Playlist(models.Model):
@@ -20,6 +21,7 @@ class Playlist(models.Model):
         on_delete=models.CASCADE
     )
     songs = models.ManyToManyField(Song)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     #Columns
     title = models.CharField(max_length=255)
