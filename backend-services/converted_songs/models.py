@@ -19,7 +19,7 @@ class ConvertedSong(models.Model):
         blank=True, 
         on_delete=models.CASCADE
     )
-    song = models.ForeignKey(Song, related_name='converted_songs', on_delete=models.CASCADE, default=0)
+    song = models.ManyToManyField(Song, related_name='converted_songs', blank=True)
 
     #Columns
     title = models.CharField(max_length=250)
