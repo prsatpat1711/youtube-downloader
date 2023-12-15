@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 export default function Playlist({ playlist }) {
+  const [currentSong, setCurrentSong] = useState({});
+
   return (
     <div className="container-fluid m-0 p-0 bg-dark text-text">
+      {currentSong && (
+        <div className="justify-content-center d-flex">
+          <AudioPlayer audio={currentSong} />
+        </div>
+      )}
       <div className="text-center text-primary">
         <h1>{playlist.title}</h1>
         <h4>{playlist.description}</h4>

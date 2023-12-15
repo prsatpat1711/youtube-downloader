@@ -32,13 +32,13 @@ export default function SongFetcher() {
         type="button"
         class="btn btn-primary d-block"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
+        data-bs-target="#handleAddModal"
       >
         Add Song
       </button>
       <div
         class="modal fade"
-        id="exampleModal"
+        id="handleAddModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -120,7 +120,7 @@ export default function SongFetcher() {
               <button
                 type="button"
                 class="btn btn-primary"
-                onClick={() => handleAddSong()}
+                onClick={handleAddSong}
               >
                 Submit
               </button>

@@ -28,6 +28,9 @@ class Playlist(models.Model):
     description = models.CharField(max_length=512)
     archive = models.BooleanField(default=False, blank=True,null=True)
 
+    date_created = models.DateTimeField(auto_created=True, auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
     def save(self, *args, **kwargs):
         super(Playlist, self).save(*args, **kwargs)    
 

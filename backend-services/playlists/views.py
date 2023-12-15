@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from django_filters import (
     FilterSet,
-    CharFilter
+    CharFilter,
+    BooleanFilter
 )
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -17,6 +18,7 @@ from .serializers import PlaylistSerializer, PlaylistViewSerializer
 class PlaylistFilter(FilterSet):
     title = CharFilter(lookup_expr='iexact')
     description = CharFilter(lookup_expr='iexact')
+    archive = BooleanFilter(lookup_expr = 'exact')
     
 
     class Meta:
@@ -24,6 +26,7 @@ class PlaylistFilter(FilterSet):
         fields = {
             'title': ['iexact'],
             'description':['iexact'],
+            'archive':['exact']
         }
 
 class PlaylistCreate(generics.ListCreateAPIView):
